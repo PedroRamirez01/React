@@ -1,7 +1,11 @@
+import { CardsList } from "./CardList";
+
 export const Content = () => {
     return (
-      <div>
-        <h1>Hola mundo</h1>
+      <div className="miclase">
+        <CardsList></CardsList>
       </div>
     );
   };
+
+  
