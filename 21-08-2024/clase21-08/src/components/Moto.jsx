@@ -3,7 +3,11 @@ import React, { Fragment } from 'react'
 export function Moto(props){
     return(
         <Fragment>  
-            <ol><BMW modelo="moto a" version="version moto a"/></ol>
+            <ol>
+                <BMW modelo="moto a" version="version moto a"/>
+                <BMW modelo="moto aa" version="version moto aa"/>
+            </ol>
+            
             <ol><KTM modelo="moto b" version="version moto b"/></ol>
             <ol><Honda modelo="moto c" version="version moto c"/></ol>
         </Fragment>
