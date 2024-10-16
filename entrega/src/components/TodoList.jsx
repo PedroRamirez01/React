@@ -1,5 +1,7 @@
 import React, { Fragment, useRef, useState } from "react";
 import { v4 as uuid } from 'uuid';
+import { db } from "../firebase";
+import { collection, addDoc , getDocs, deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 
 export function TodoList() {
     const [todos, setTodos] = useState([]);
@@ -9,7 +11,7 @@ export function TodoList() {
     const [newTask, setNewTask] = useState("");
     const importanteRef = useRef();
 
-    const agregarTarea = () => {
+    const agregarTarea = async () => {
         const tituloInput = tituloRef.current.value;
         const tareaInput = tareaRef.current.value;
         const importantCheck = importanteRef.current.checked;
@@ -18,14 +20,19 @@ export function TodoList() {
         if (tituloInput === '' || tareaInput === '') return;
 
         const nuevaTarea = {
-            id: uuid(),
             titulo: tituloInput,
             tarea: tareaInput,
             completada: false,
             important: importantCheck,
         };
 
-        setTodos((prevTodos) => [...prevTodos, nuevaTarea]);
+        try {
+            const docRef = await addDoc(collection(db, "tareas"), nuevaTarea);
+            setTodos([...todos, { id: docRef.id , ...nuevaTarea}]);
+        }catch(e) {
+            console.error("Error adding document: ", e);
+        }
+
         tituloRef.current.value = '';
         tareaRef.current.value = '';
         importanteRef.current.value = false;
@@ -57,8 +64,15 @@ export function TodoList() {
         setEditMode(null);
     };
 
-    const eliminarTarea = (id) => {
-        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    const eliminarTarea = async (id) => {
+        try {
+            await deleteDoc(doc(db, "tareas", id));
+            console.log("Document successfully deleted!");
+            const resultado = todos.filter((todo) => todo.id !== id)
+            setTodos(resultado);
+        }catch(e) {
+            console.error("Error removing document: ", e);
+        }            
     };
 
     return (
