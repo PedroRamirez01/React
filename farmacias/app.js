@@ -1,7 +1,10 @@
+
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const port = 3000;
 app.use(express.json());
+app.use(cors());
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}/`);
@@ -17,6 +20,7 @@ app.get('/farmacias/vitacura', async (req, res) => {
         }
         const data = await response.json();
         const farmaciasVitacura = data.filter(farmacia => farmacia.comuna_nombre === 'VITACURA');
+        console.log('Farmacias de Vitacura:', farmaciasVitacura);
         res.json(farmaciasVitacura);
     } catch (error) {
         console.error('error:', error);
