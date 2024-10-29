@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/styles.css";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export function Login() {
-  /* const navigate = useNavigate(); */
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      console.log(user);
+      navigate("/home", { replace: true });
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
     <>
       <div className="d-flex aling-items-center py-4 bg-body-tertiary vh-100">
         <main className="form-signin w-100 m-auto">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleLogin}>
             <img
               className="mb-4"
               src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg"
@@ -22,12 +34,19 @@ export function Login() {
               height="57"
             />
             <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+
+            {error && <div className="alert alert-danger">{error}</div>}
+            
             <div className="form-floating">
               <input
                 type="email"
                 className="form-control"
-                id="floatingInput"
+                id="txt_email"
+                name="txt_email"
                 placeholder="name@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
               <label htmlFor="floatingInput">Email address</label>
             </div>
@@ -35,8 +54,12 @@ export function Login() {
               <input
                 type="password"
                 className="form-control"
-                id="floatingPassword"
+                id="txt_contrasena"
+                name="txt_contrasena"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <label htmlFor="floatingPassword">Password</label>
             </div>
