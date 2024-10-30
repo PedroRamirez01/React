@@ -15,10 +15,12 @@ export function Login() {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log(user);
-      if (email.includes("@alumnos.cl")) {
-        navigate("/homealumno", { replace: true });
-      } else if (email.includes("@profesor.cl")) {
-        navigate("/homeprofesor", { replace: true });
+      if (email.includes("@administrador.cl")) {
+        navigate("/admin", { replace: true });
+      } else if (email.includes("@vendedor.cl")) {
+        navigate("/vendedor", { replace: true });
+      } else if (email.includes("@cajero.cl")) {
+        navigate("/cajero", { replace: true });
       } else {
         navigate("/", { replace: true });
       }
@@ -30,7 +32,7 @@ export function Login() {
 
   return (
     <>
-      <div className="d-flex aling-items-center py-4 bg-body-tertiary vh-100">
+      <div className="d-flex aling-items-center py-4 bg-body-tertiary" style={{height: '85vh'}}>
         <main className="form-signin w-100 m-auto">
           <form onSubmit={handleLogin}>
             <img
@@ -88,6 +90,15 @@ export function Login() {
           </form>
         </main>
       </div>
+      <footer className="footer mt-auto py-3 bg-body-secondary text-center">
+        <div className="container">
+          <span className="text-muted">admin: admin@administrador.cl contraseña: 123456</span>
+          <br/>
+          <span className="text-muted">vendedor: vendedor@vendedor.cl contraseña: 123456</span>
+          <br/>
+          <span className="text-muted">cajero: cajero@cajero.cl contraseña: 123456</span>
+        </div>
+      </footer>
     </>
   );
 }

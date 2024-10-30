@@ -1,9 +1,10 @@
 import React from "react";
 import { Login } from "./components/Login";
-import { Home } from "./components/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ProtectedRouter } from "./components/ProtectedRouter";
-import { HomeProfesor } from "./components/HomeProfesor";
+import { Admin } from "./components/Admin";
+import { Vendedor } from "./components/Vendedor";
+import { Cajero } from "./components/Cajero";
 
 export function App() {
   return (
@@ -12,18 +13,26 @@ export function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route
-            path="/homealumno"
+            path="/admin"
             element={
               <ProtectedRouter>
-                <Home />
+                <Admin />
               </ProtectedRouter>
             }
           ></Route>
           <Route
-            path="/homeprofesor"
+            path="/vendedor"
             element={
               <ProtectedRouter>
-                <HomeProfesor />
+                <Vendedor />
+              </ProtectedRouter>
+            }
+          ></Route>
+          <Route
+            path="/cajero"
+            element={
+              <ProtectedRouter>
+                <Cajero />
               </ProtectedRouter>
             }
           ></Route>

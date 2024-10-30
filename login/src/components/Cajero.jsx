@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 
-export function HomeProfesor() {
+export function Cajero() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -25,7 +25,7 @@ export function HomeProfesor() {
             width="72"
             height="57"
           />
-          <h1 className="h3 mb-3 fw-normal">Welcome to LOS POLLOS HERMANOS FAMILY, my name is gustabo, butyoucancallmegus, este es el perfil profesor</h1>
+          <h1 className="h3 mb-3 fw-normal">Welcome CAJERO</h1>
           <button
             className="w-100 btn btn-lg btn-primary"
             onClick={handleLogout}
