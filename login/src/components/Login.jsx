@@ -15,7 +15,14 @@ export function Login() {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log(user);
-      navigate("/home", { replace: true });
+      if (email.includes("@alumnos.cl")) {
+        navigate("/homealumno", { replace: true });
+      } else if (email.includes("@profesor.cl")) {
+        navigate("/homeprofesor", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
+
     } catch (error) {
       setError(error.message);
     }
