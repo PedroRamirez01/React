@@ -7,17 +7,6 @@ export function App() {
   return (
     <>
       <div className="row">
-        <div className="col-4">
-          <h2>Regalos</h2>
-        </div>
-        <div className="col-4">
-          <h2>Comidas</h2>
-        </div>
-        <div className="col-4">
-          <h2>Adornos</h2>
-        </div>
-      </div>
-      <div className="row">
         <div className="col">
           <Regalos />
         </div>
